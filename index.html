@@ -94,27 +94,19 @@
         
         <!-- 右侧内容区域 -->
         <main class="content-area">
-            <!-- GitHub 贡献统计 -->
-            <section class="github-stats">
-                <article class="stats-line">
-                    <span class="stats-label">总计贡献：</span>
-                    <span class="stats-text">过去一年共提交了 <span class="highlight-number" id="total-commits">0</span> 次代码</span>
-                </article>
-                
-                <article class="stats-line">
-                    <span class="stats-label">最长连续：</span>
-                    <span class="stats-text">连续编程 <span class="highlight-number" id="longest-streak">0</span> 天</span>
-                </article>
-                
-                <article class="stats-line">
-                    <span class="stats-label">主要语言：</span>
-                    <span class="stats-text">
-                        <span class="language-tag js"></span>
-                        <span class="language-tag py"></span>
-                        <span class="language-tag ts"></span>
-                        <span class="language-tag css"></span>
-                    </span>
-                </article>
+
+            <!-- GitHub 贡献图 -->
+            <section class="contribution-section">
+                <h2>
+                    <span id="contribution-title" class="contribution-title"><i class="fab fa-github"></i> GitHub 贡献图</span>
+                    <div id="contribution-header-placeholder" class="contribution-header-placeholder"></div>
+                </h2>
+                <div id="contribution-chart" class="contribution-chart">
+                    <div class="loading-placeholder">
+                        <div class="loading-spinner"></div>
+                        <span>加载贡献数据中...</span>
+                    </div>
+                </div>
             </section>
             
             <!-- 站点展示 -->
