@@ -278,8 +278,12 @@ async function checkAuth(request, kv) {
   
   const cookies = Object.fromEntries(
     cookieHeader.split(';').map(cookie => {
-      const [key, value] = cookie.trim().split('=')
-      return [key, value]
+      const trimmed = cookie.trim()
+      const index = trimmed.indexOf('=')
+      if(index > 0){
+        return [trimmed.substring(0, index), trimmed.substring(index + 1)]
+      }
+      return ['', ''] 
     })
   )
   
