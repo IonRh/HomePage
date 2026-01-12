@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台管理系统</title>
+    <link rel="stylesheet" href="./static/manage.css">
+</head>
+<body>
+    <!-- 登录页面 -->
+    <div id="login-page" class="login-container">
+        <div class="login-box">
+            <h1 class="login-title">🔐 后台管理系统</h1>
+            <p class="login-subtitle">请登录以继续</p>
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="username">用户名</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        placeholder="请输入用户名" 
+                        required
+                        autocomplete="username"
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        placeholder="请输入密码" 
+                        required
+                        autocomplete="current-password"
+                    >
+                </div>
+                <button type="submit" class="btn-login">登录</button>
+            </form>
+            <div id="login-message" class="message" style="display: none;"></div>
+            <p class="login-hint">默认账号：admin / admin123</p>
+            <p class="login-footer">
+                <a href="./index.html" class="back-link">← 返回主页</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- 管理后台页面 -->
+    <div id="admin-page" class="admin-container" style="display: none;">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>📊 管理面板</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#profile" class="nav-item active" data-section="profile">
+                    <span class="nav-icon">👤</span>
+                    <span>个人资料</span>
+                </a>
+                <a href="#announcement" class="nav-item" data-section="announcement">
+                    <span class="nav-icon">📢</span>
+                    <span>公告管理</span>
+                </a>
+                <a href="#portals" class="nav-item" data-section="portals">
+                    <span class="nav-icon">🚪</span>
+                    <span>门户管理</span>
+                </a>
+                <a href="#redeem-codes" class="nav-item" data-section="redeem-codes">
+                    <span class="nav-icon">🎟️</span>
+                    <span>兑换码管理</span>
+                </a>
+                <a href="#vip-users" class="nav-item" data-section="vip-users">
+                    <span class="nav-icon">👑</span>
+                    <span>VIP 用户</span>
+                </a>
+                <a href="#verified-users" class="nav-item" data-section="verified-users">
+                    <span class="nav-icon">✓</span>
+                    <span>黄V认证</span>
+                </a>
+                <a href="#settings" class="nav-item" data-section="settings">
+                    <span class="nav-icon">⚙️</span>
+                    <span>系统设置</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="btn-logout">退出登录</button>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <div class="content-header">
+                <h1 id="page-title">个人资料</h1>
+                <div class="header-actions">
+                    <span class="welcome-text">欢迎回来，管理员</span>
+                </div>
+            </div>
+
+            <!-- 个人资料编辑 -->
+            <section id="profile-section" class="content-section active">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>编辑个人资料</h3>
+                        <p class="card-description">更新您的个人信息，这些信息将显示在主页上</p>
+                    </div>
+                    <form id="profile-form" class="form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="profile-name">姓名</label>
+                                <input type="text" id="profile-name" placeholder="您的姓名" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="profile-email">邮箱</label>
+                                <input type="email" id="profile-email" placeholder="your-email@example.com">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-avatar">头像 URL</label>
+                            <input type="url" id="profile-avatar" placeholder="https://example.com/avatar.jpg">
+                            <span class="form-hint">建议尺寸：150x150 像素</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-bio">个人简介</label>
+                            <textarea id="profile-bio" rows="4" placeholder="介绍一下自己..."></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="profile-github">GitHub</label>
+                                <input type="url" id="profile-github" placeholder="https://github.com/username">
+                            </div>
+                            <div class="form-group">
+                                <label for="profile-twitter">Twitter</label>
+                                <input type="url" id="profile-twitter" placeholder="https://twitter.com/username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile-website">个人网站</label>
+                            <input type="url" id="profile-website" placeholder="https://example.com">
+                        </div>
+                        <button type="submit" class="btn-primary">保存更改</button>
+                    </form>
+                    <div id="profile-message" class="message" style="display: none;"></div>
+                </div>
+            </section>
+
+            <!-- 公告管理 -->
+            <section id="announcement-section" class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>公告管理</h3>
+                        <p class="card-description">编辑主页显示的公告内容</p>
+                    </div>
+                    <form id="announcement-form" class="form">
+                        <div class="form-group">
+                            <label for="announcement-title">公告标题</label>
+                            <input type="text" id="announcement-title" placeholder="公告标题" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="announcement-content">公告内容</label>
+                            <textarea id="announcement-content" rows="6" placeholder="公告详细内容..." required></textarea>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label>
+                                <input type="checkbox" id="announcement-enabled">
+                                <span>启用公告</span>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn-primary">保存公告</button>
+                    </form>
+                    <div id="announcement-message" class="message" style="display: none;"></div>
+                </div>
+            </section>
+
+            <!-- 门户管理 -->
+            <section id="portals-section" class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>门户链接管理</h3>
+                        <p class="card-description">管理主页展示的快速访问链接</p>
+                        <button id="add-portal-btn" class="btn-secondary">+ 添加门户</button>
+                    </div>
+                    <div id="portals-list" class="items-list">
+                        <!-- 门户列表将通过 JS 动态加载 -->
+                    </div>
+                    <div id="portals-message" class="message" style="display: none;"></div>
+                </div>
+            </section>
+
+            <!-- 兑换码管理 -->
+            <section id="redeem-codes-section" class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>兑换码管理</h3>
+                        <p class="card-description">生成和管理兑换码</p>
+                        <button id="generate-code-btn" class="btn-secondary">+ 生成兑换码</button>
+                    </div>
+                    <div id="codes-list" class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>兑换码</th>
+                                    <th>类型</th>
+                                    <th>价值</th>
+                                    <th>状态</th>
+                                    <th>使用者</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="codes-tbody">
+                                <!-- 数据将通过 JS 动态加载 -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="codes-message" class="message" style="display: none;"></div>
+                </div>
+            </section>
+
+            <!-- VIP 用户管理 -->
+            <section id="vip-users-section" class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>VIP 用户管理</h3>
+                        <p class="card-description">管理 VIP 会员</p>
+                        <button id="add-vip-btn" class="btn-secondary">+ 添加 VIP</button>
+                    </div>
+                    <div id="vip-list" class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>邮箱</th>
+                                    <th>等级</th>
+                                    <th>到期时间</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="vip-tbody">
+                                <!-- 数据将通过 JS 动态加载 -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="vip-message" class="message" style="display: none;"></div>
+                </div>
+            </section>
+
+            <!-- 黄V认证管理 -->
+            <section id="verified-users-section" class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>黄V认证管理</h3>
+                        <p class="card-description">管理用户认证标识</p>
+                        <button id="add-verified-btn" class="btn-secondary">+ 添加认证</button>
+                    </div>
+                    <div id="verified-list" class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>邮箱</th>
+                                    <th>姓名</th>
+                                    <th>认证时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="verified-tbody">
+                                <!-- 数据将通过 JS 动态加载 -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="verified-message" class="message" style="display: none;"></div>
+                </div>
+            </section>
+
+            <!-- 系统设置 -->
+            <section id="settings-section" class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>修改密码</h3>
+                        <p class="card-description">定期更改密码以保护账户安全</p>
+                    </div>
+                    <form id="password-form" class="form">
+                        <div class="form-group">
+                            <label for="current-password">当前密码</label>
+                            <input type="password" id="current-password" placeholder="输入当前密码" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password">新密码</label>
+                            <input type="password" id="new-password" placeholder="输入新密码" required minlength="6">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">确认新密码</label>
+                            <input type="password" id="confirm-password" placeholder="再次输入新密码" required>
+                        </div>
+                        <button type="submit" class="btn-primary">更新密码</button>
+                    </form>
+                    <div id="password-message" class="message" style="display: none;"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- 门户编辑弹窗 -->
+    <div id="portal-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="portal-modal-title">添加门户</h3>
+                <span class="modal-close" onclick="closePortalModal()">&times;</span>
+            </div>
+            <form id="portal-form" class="form">
+                <input type="hidden" id="portal-id">
+                <div class="form-group">
+                    <label for="portal-name">名称</label>
+                    <input type="text" id="portal-name" placeholder="门户名称" required>
+                </div>
+                <div class="form-group">
+                    <label for="portal-url">链接</label>
+                    <input type="url" id="portal-url" placeholder="https://example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="portal-icon">图标</label>
+                    <input type="text" id="portal-icon" placeholder="🔗 输入 Emoji" required>
+                    <span class="form-hint">可以使用 Emoji 或其他字符</span>
+                </div>
+                <div class="form-group">
+                    <label for="portal-description">描述</label>
+                    <textarea id="portal-description" rows="3" placeholder="简短描述..."></textarea>
+                </div>
+                <div class="form-group checkbox-group">
+                    <label>
+                        <input type="checkbox" id="portal-enabled" checked>
+                        <span>启用</span>
+                    </label>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closePortalModal()">取消</button>
+                    <button type="submit" class="btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 生成兑换码弹窗 -->
+    <div id="generate-code-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>生成兑换码</h3>
+                <span class="modal-close" onclick="closeGenerateCodeModal()">&times;</span>
+            </div>
+            <form id="generate-code-form" class="form">
+                <div class="form-group">
+                    <label for="code-type">类型</label>
+                    <select id="code-type" required>
+                        <option value="vip">VIP 会员</option>
+                        <option value="verified">黄V认证</option>
+                        <option value="custom">自定义</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="code-value">价值</label>
+                    <input type="text" id="code-value" placeholder="例如：VIP1、30天" required>
+                    <span class="form-hint">对于 VIP 类型，输入等级（VIP1/VIP2/VIP3）；对于自定义类型，输入描述</span>
+                </div>
+                <div class="form-group">
+                    <label for="code-count">生成数量</label>
+                    <input type="number" id="code-count" value="1" min="1" max="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="code-description">备注</label>
+                    <textarea id="code-description" rows="2" placeholder="可选的备注信息..."></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeGenerateCodeModal()">取消</button>
+                    <button type="submit" class="btn-primary">生成</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 添加 VIP 弹窗 -->
+    <div id="add-vip-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>添加 VIP 用户</h3>
+                <span class="modal-close" onclick="closeAddVipModal()">&times;</span>
+            </div>
+            <form id="add-vip-form" class="form">
+                <div class="form-group">
+                    <label for="vip-email">邮箱</label>
+                    <input type="email" id="vip-email" placeholder="user@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="vip-level">VIP 等级</label>
+                    <select id="vip-level" required>
+                        <option value="VIP1">VIP 1 - 基础会员</option>
+                        <option value="VIP2">VIP 2 - 高级会员</option>
+                        <option value="VIP3">VIP 3 - 至尊会员</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="vip-days">有效天数</label>
+                    <input type="number" id="vip-days" value="30" min="1" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeAddVipModal()">取消</button>
+                    <button type="submit" class="btn-primary">添加</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 添加认证用户弹窗 -->
+    <div id="add-verified-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>添加黄V认证</h3>
+                <span class="modal-close" onclick="closeAddVerifiedModal()">&times;</span>
+            </div>
+            <form id="add-verified-form" class="form">
+                <div class="form-group">
+                    <label for="verified-email">邮箱</label>
+                    <input type="email" id="verified-email" placeholder="user@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="verified-name">姓名</label>
+                    <input type="text" id="verified-name" placeholder="用户姓名" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" onclick="closeAddVerifiedModal()">取消</button>
+                    <button type="submit" class="btn-primary">添加</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 加载管理脚本 -->
+    <script>
+        // API 配置 - 请修改为你的 Worker 域名
+        const API_BASE = 'https://your-worker-domain.workers.dev';
+    </script>
+    <script src="./static/script.js"></script>
+</body>
+</html>
+

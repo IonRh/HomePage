@@ -70,6 +70,23 @@ body::before {
     object-fit: cover;
 }
 
+.profile-badges {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 8px 0 18px;
+    padding-left: 6px;
+    text-align: left;
+}
+
+.profile-badges .badge {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 12px;
+}
+
 .avatar-decorations {
     position: absolute;
     inset: 0;
@@ -720,7 +737,7 @@ body::before {
 }
 
 /* 站点和项目部分 */
-.sites-section, .projects-section, .skills-section {
+.sites-section, .projects-section, .skills-section, .portal-section, .notice-section, .ad-section {
     background: rgb(255 255 255 / 4%);
     backdrop-filter: blur(25px);
     border-radius: 20px;
@@ -729,13 +746,151 @@ body::before {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
-.sites-section h2, .projects-section h2, .skills-section h2 {
+.sites-section h2, .projects-section h2, .skills-section h2, .portal-section h2, .notice-section h2, .ad-section h2 {
     display: flex;
     align-items: center;
     gap: 10px;
     margin-bottom: 20px;
     font-size: 18px;
     font-weight: 600;
+}
+
+.portal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.portal-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px;
+    border-radius: 16px;
+    text-decoration: none;
+    color: inherit;
+    background: rgb(255 255 255 / 7%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.portal-card:hover {
+    transform: translateY(-4px);
+    background: rgb(255 255 255 / 14%);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+}
+
+.portal-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    font-size: 18px;
+}
+
+.portal-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.portal-info h3 {
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+.portal-info p {
+    font-size: 13px;
+    opacity: 0.8;
+    line-height: 1.5;
+}
+
+.notice-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.notice-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.notice-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #1c1c1c;
+    background: linear-gradient(135deg, #ffd86f, #f7b733);
+}
+
+.ad-slot {
+    position: relative;
+    border-radius: 18px;
+    padding: 22px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.15);
+}
+
+.ad-slot h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.ad-slot p {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+.ad-badge {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.ad-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #1b1b1b;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ad-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
 }
 
 .sites-grid, .projects-grid {
@@ -891,7 +1046,7 @@ body::before {
         backdrop-filter: blur(20px);
     }
     
-    .sites-section, .projects-section, .skills-section {
+    .sites-section, .projects-section, .skills-section, .portal-section, .notice-section, .ad-section {
         backdrop-filter: blur(20px);
     }
     
@@ -955,7 +1110,7 @@ body::before {
         backdrop-filter: blur(18px);
     }
     
-    .sites-section, .projects-section, .skills-section {
+    .sites-section, .projects-section, .skills-section, .portal-section, .notice-section, .ad-section {
         backdrop-filter: blur(18px);
     }
     

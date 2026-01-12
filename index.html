@@ -3,116 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>个人主页</title>
     <link rel="stylesheet" href="./static/style.css">
-    <link rel="shortcut icon" href="./static/f2.png">
-    <link rel="stylesheet" href="./static/fontawesome.css">
 </head>
 <body>
-    <div class="main-container">
-        <!-- 左侧个人信息 -->
-        <aside class="sidebar">
-            <section class="profile-section">
-                <div class="profile-avatar">
-                    <img src="" alt="头像">
-                    <div class="avatar-decorations">
+    <!-- 背景动画 -->
+    <div class="background">
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+    </div>
+
+    <!-- 主容器 -->
+    <div class="container">
+        <!-- 个人信息卡片 -->
+        <section class="profile-card">
+            <div class="avatar-wrapper">
+                <img id="avatar" src="https://via.placeholder.com/150" alt="头像" class="avatar">
+                <span id="verified-badge" class="verified-badge" style="display: none;" title="黄V认证">✓</span>
+                <span id="vip-badge" class="vip-badge" style="display: none;" title="VIP用户">VIP</span>
+            </div>
+            <h1 id="name" class="name">加载中...</h1>
+            <p id="bio" class="bio">加载中...</p>
+            <div class="social-links">
+                <a id="email-link" href="#" target="_blank" class="social-link" style="display: none;">
+                    <span class="icon">📧</span>
+                </a>
+                <a id="github-link" href="#" target="_blank" class="social-link" style="display: none;">
+                    <span class="icon">🔗</span>
+                </a>
+                <a id="twitter-link" href="#" target="_blank" class="social-link" style="display: none;">
+                    <span class="icon">🐦</span>
+                </a>
+                <a id="website-link" href="#" target="_blank" class="social-link" style="display: none;">
+                    <span class="icon">🌐</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- 公告区域 -->
+        <section id="announcement-section" class="announcement-section" style="display: none;">
+            <div class="announcement-card">
+                <div class="announcement-header">
+                    <span class="announcement-icon">📢</span>
+                    <h2 id="announcement-title" class="announcement-title">公告</h2>
+                </div>
+                <p id="announcement-content" class="announcement-content"></p>
+                <p id="announcement-time" class="announcement-time"></p>
+            </div>
+        </section>
+
+        <!-- 门户链接区域 -->
+        <section class="portals-section">
+            <h2 class="section-title">🚪 快速访问</h2>
+            <div id="portals-container" class="portals-grid">
+                <!-- 门户链接将通过 JS 动态加载 -->
+                <div class="portal-card skeleton">
+                    <div class="portal-icon">⏳</div>
+                    <div class="portal-info">
+                        <h3 class="portal-name">加载中...</h3>
+                        <p class="portal-desc">正在加载数据</p>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- 交易区域 -->
+        <section class="transaction-section">
+            <h2 class="section-title">💎 特权服务</h2>
+            
+            <!-- 兑换码区域 -->
+            <div class="transaction-card">
+                <div class="card-header">
+                    <span class="card-icon">🎟️</span>
+                    <h3>兑换码激活</h3>
+                </div>
+                <p class="card-description">拥有兑换码？在这里激活你的特权！</p>
+                <form id="redeem-form" class="redeem-form">
+                    <input 
+                        type="text" 
+                        id="redeem-code" 
+                        placeholder="请输入兑换码（例如：XXXX-XXXX-XXXX-XXXX）" 
+                        class="input-field"
+                        maxlength="19"
+                        required
+                    >
+                    <input 
+                        type="email" 
+                        id="redeem-email" 
+                        placeholder="请输入您的邮箱" 
+                        class="input-field"
+                        required
+                    >
+                    <button type="submit" class="btn-primary">
+                        <span class="btn-text">立即兑换</span>
+                    </button>
+                </form>
+                <div id="redeem-message" class="message" style="display: none;"></div>
+            </div>
+
+            <!-- VIP 购买区域 -->
+            <div class="transaction-card">
+                <div class="card-header">
+                    <span class="card-icon">👑</span>
+                    <h3>VIP 会员</h3>
+                </div>
+                <p class="card-description">升级 VIP，享受更多专属特权和服务！</p>
                 
-                <div class="profile-info">
-                    <div class="status">
-                        <span class="emoji"></span>
-                        <span class="title"></span>
+                <div class="vip-plans">
+                    <div class="vip-plan">
+                        <div class="plan-badge">VIP 1</div>
+                        <div class="plan-name">基础会员</div>
+                        <div class="plan-price">¥29<span>/月</span></div>
+                        <ul class="plan-features">
+                            <li>✓ 专属标识</li>
+                            <li>✓ 优先响应</li>
+                            <li>✓ 基础功能</li>
+                        </ul>
+                        <button class="btn-vip" onclick="showVipPurchase('VIP1', 29)">立即购买</button>
                     </div>
-                    <div class="quote">
-                        <span class="emoji">📝</span>
-                        <span></span>
-                    </div>
-                    
-                    <div class="social-links">
-                        <a href="" target="_blank"><i class="fas fa-github"></i></a>
-                        <a href="" target="_blank"><i class="fas fa-envelope"></i></a>
-                        <a href="" target="_blank"><i class="fas fa-paper-plane"></i></a>
-                        <a href="#" onclick="showIframe()" title="夏日空调"><i class="fas fa-circle"></i></a>
-                    </div>
-                    
-                    <div class="location-info">
-                        <div class="location">
-                            <i class="fa fa-map-marker"></i>
-                            <span></span>
-                        </div>
-                        <div class="name">
-                            <i class="fas fa-briefcase"></i>
-                            <span></span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- 个人标签 -->
-            <section class="tags-section">
-            </section>
-                        
-            <!-- 技能展示 -->
-            <section class="skills-section">
-                <h2><i class="fas fa-heart"></i> 欢迎您</h2>
-                <div class="stat-item">
-                    <span class="stat-label">访客IP: </span>
-                    <span class="stat-number blur-effect" id="visitor-ip">获取中...</span>
-                </div>
-            </section>
-            <br>
-            <!-- 时间线 -->
-            <section class="timeline-section">
-            </section>
-        </aside>
-        
-        <!-- 右侧内容区域 -->
-        <main class="content-area">
 
-            <!-- GitHub 贡献图 -->
-            <section class="contribution-section">
-                <h2>
-                    <span id="contribution-title" class="contribution-title"><i class="fab fa-github"></i> GitHub 贡献图</span>
-                    <div id="contribution-header-placeholder" class="contribution-header-placeholder"></div>
-                </h2>
-                <div id="contribution-chart" class="contribution-chart">
-                    <div class="loading-placeholder">
-                        <div class="loading-spinner"></div>
-                        <span>加载贡献数据中...</span>
+                    <div class="vip-plan featured">
+                        <div class="featured-label">推荐</div>
+                        <div class="plan-badge gold">VIP 2</div>
+                        <div class="plan-name">高级会员</div>
+                        <div class="plan-price">¥99<span>/月</span></div>
+                        <ul class="plan-features">
+                            <li>✓ 包含 VIP 1 所有特权</li>
+                            <li>✓ 黄V认证</li>
+                            <li>✓ 高级功能</li>
+                            <li>✓ 专属客服</li>
+                        </ul>
+                        <button class="btn-vip" onclick="showVipPurchase('VIP2', 99)">立即购买</button>
+                    </div>
+
+                    <div class="vip-plan">
+                        <div class="plan-badge platinum">VIP 3</div>
+                        <div class="plan-name">至尊会员</div>
+                        <div class="plan-price">¥299<span>/月</span></div>
+                        <ul class="plan-features">
+                            <li>✓ 包含 VIP 2 所有特权</li>
+                            <li>✓ 定制服务</li>
+                            <li>✓ 全部功能</li>
+                            <li>✓ 优先支持</li>
+                        </ul>
+                        <button class="btn-vip" onclick="showVipPurchase('VIP3', 299)">立即购买</button>
                     </div>
                 </div>
-            </section>
-            
-            <!-- 站点展示 -->
-            <section class="sites-section">
-                <h2><i class="fas fa-globe"></i> WebSite</h2>
-                <div class="sites-grid">
+            </div>
+
+            <!-- VIP 状态查询 -->
+            <div class="transaction-card">
+                <div class="card-header">
+                    <span class="card-icon">🔍</span>
+                    <h3>查询 VIP 状态</h3>
                 </div>
-            </section>
-            
-            <!-- 项目展示 -->
-            <section class="projects-section">
-                <h2><i class="fas fa-cube"></i> 项目集</h2>
-                <div class="projects-grid">
-                </div>
-            </section>
-            
-            <!-- 技能展示 -->
-            <section class="skills-section">
-                <h2><i class="fas fa-wrench"></i> 技能栈</h2>
-                <div class="skills-icons">
-            </section>
-        </main>
-    </div>
-    <!-- 背景切换开关 -->
-    <div id="background-toggle" class="background-toggle" title="切换背景">
-        <i class="fas fa-moon"></i>
+                <form id="vip-check-form" class="vip-check-form">
+                    <input 
+                        type="email" 
+                        id="vip-check-email" 
+                        placeholder="输入邮箱查询 VIP 状态" 
+                        class="input-field"
+                        required
+                    >
+                    <button type="submit" class="btn-secondary">查询状态</button>
+                </form>
+                <div id="vip-status-message" class="message" style="display: none;"></div>
+            </div>
+        </section>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>© 2026 个人主页 | 使用纯原生 HTML 构建</p>
+            <p>
+                <a href="./manage.html" class="footer-link">后台管理</a>
+            </p>
+        </footer>
     </div>
 
-    <footer>
-            <p>© 2025 WebSite by <a id="footer-link" href="#" target="_blank">阿布白(IonRh)</a></p>
-    </footer>
+    <!-- VIP 购买弹窗 -->
+    <div id="vip-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeVipModal()">&times;</span>
+            <h2>购买 <span id="modal-vip-level"></span></h2>
+            <p class="modal-price">¥<span id="modal-vip-price"></span>/月</p>
+            <p class="modal-description">
+                本功能为演示功能。实际使用时，您需要接入支付系统（如支付宝、微信支付等）。
+            </p>
+            <form id="vip-purchase-form" class="modal-form">
+                <input 
+                    type="email" 
+                    id="purchase-email" 
+                    placeholder="请输入您的邮箱" 
+                    class="input-field"
+                    required
+                >
+                <input 
+                    type="text" 
+                    id="purchase-name" 
+                    placeholder="请输入您的姓名" 
+                    class="input-field"
+                    required
+                >
+                <button type="submit" class="btn-primary">确认购买</button>
+            </form>
+            <div id="purchase-message" class="message" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- 加载脚本 -->
+    <script src="./static/script.js"></script>
 </body>
-<script src="./static/script.js"></script>
 </html>
+
